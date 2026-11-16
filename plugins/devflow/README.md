@@ -18,6 +18,11 @@ multi-part requirements, and run `/devflow:feature <spec folder>` in a
 Agents: `devflow:test-writer`, `devflow:code-reviewer`,
 `devflow:ui-reviewer`, `devflow:plan-reviewer`.
 
+UI work (areas with `"ui": true`) follows the `frontend-design` skill in
+`/design`, `/feature`, `/bugfix` and the ui-reviewer. devflow declares
+`frontend-design@claude-plugins-official` as a dependency, so installing
+devflow installs it too; the area's conventions still win.
+
 Hooks: after every Edit/Write, the owning area's `onEdit` steps run on the
 file; before a turn ends, each changed area's `check` must pass. Both do
 nothing in a repo without `.claude/devflow.json`. They need `jq`.

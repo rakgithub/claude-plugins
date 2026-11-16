@@ -89,6 +89,12 @@ PRD: ./prd.md
 
 Every acceptance criterion in the PRD appears in the traceability table.
 
+If the design changes UI in an area with `"ui": true`, load the
+`frontend-design` skill and record the visual direction (layout, type,
+colour, key interactions) under Changes by area, so `/devflow:feature`
+builds to it instead of improvising. The area's conventions and existing
+design system win where they disagree.
+
 ## 6. Write `tasks.md`
 
 In the spec folder. Cut the work into tasks that each:

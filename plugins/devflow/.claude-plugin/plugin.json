@@ -5,5 +5,6 @@
   "author": {
     "name": "rakgithub"
   },
-  "keywords": ["workflow", "spec-driven", "tdd", "prd", "design", "code-review"]
+  "keywords": ["workflow", "spec-driven", "tdd", "prd", "design", "code-review"],
+  "dependencies": ["frontend-design@claude-plugins-official"]
 }

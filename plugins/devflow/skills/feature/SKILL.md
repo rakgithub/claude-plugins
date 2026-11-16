@@ -36,7 +36,9 @@ Pick the mode from the input:
       reason.
    2. **Implement** the smallest change that makes them pass, in the files
       the task names, following the touched area's conventions and the
-      config `rules`.
+      config `rules`. If the task changes UI in an area with `"ui": true`,
+      load the `frontend-design` skill first and follow it; the area's
+      conventions and existing design system win where they disagree.
    3. **Verify.** Run the `verify` command of each touched area. Fix
       causes, never weaken checks. Repeat until green.
    4. **Record.** Tick the task in `tasks.md` and add one line under it:

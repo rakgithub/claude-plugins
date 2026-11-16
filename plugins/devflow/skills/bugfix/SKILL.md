@@ -24,7 +24,9 @@ file of the area that owns the bug and follow it.
    end-to-end), in the area that owns the bug. Confirm it fails with the
    symptom from the report.
 3. **Fix.** Smallest change that fixes the root cause, not the symptom. No
-   drive-by refactors.
+   drive-by refactors. For a visual bug in an area with `"ui": true`, load
+   the `frontend-design` skill first; the area's conventions win where they
+   disagree.
 4. **Verify.** The new test passes, then run the `verify` command of each
    touched area until green.
 5. **Review.** Run the `devflow:code-reviewer` subagent (and

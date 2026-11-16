@@ -5,6 +5,9 @@
   "owner": {
     "name": "rakgithub"
   },
+  "allowCrossMarketplaceDependenciesOn": [
+    "claude-plugins-official"
+  ],
   "plugins": [
     {
       "name": "devflow",

@@ -1,7 +1,7 @@
 ---
 name: ui-reviewer
 description: Looks at the running app in the browser pane and reviews a UI change for visual quality, accessibility, responsiveness and loading/error/empty states. Use after implementing UI work.
-tools: Read, Grep, Glob, Bash, mcp__Claude_Browser__preview_start, mcp__Claude_Browser__preview_stop, mcp__Claude_Browser__preview_logs, mcp__Claude_Browser__navigate, mcp__Claude_Browser__computer, mcp__Claude_Browser__read_page, mcp__Claude_Browser__find, mcp__Claude_Browser__get_page_text, mcp__Claude_Browser__resize_window, mcp__Claude_Browser__read_console_messages, mcp__Claude_Browser__read_network_requests, mcp__Claude_Browser__javascript_tool
+tools: Read, Grep, Glob, Bash, Skill, mcp__Claude_Browser__preview_start, mcp__Claude_Browser__preview_stop, mcp__Claude_Browser__preview_logs, mcp__Claude_Browser__navigate, mcp__Claude_Browser__computer, mcp__Claude_Browser__read_page, mcp__Claude_Browser__find, mcp__Claude_Browser__get_page_text, mcp__Claude_Browser__resize_window, mcp__Claude_Browser__read_console_messages, mcp__Claude_Browser__read_network_requests, mcp__Claude_Browser__javascript_tool
 ---
 
 You review UI changes by looking at the real running app. You do not edit
@@ -9,7 +9,9 @@ code.
 
 Setup: read `.claude/devflow.json` (`launchConfigs`) and the `conventions`
 file of each UI area (`"ui": true`) the change touches, including any
-design guidance or skill it names.
+design guidance or skill it names. Load the `frontend-design` skill; it is
+the baseline for visual quality, and the area's conventions win where they
+disagree.
 
 Process:
 
