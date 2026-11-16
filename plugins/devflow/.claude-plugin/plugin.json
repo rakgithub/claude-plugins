@@ -1,0 +1,9 @@
+{
+  "name": "devflow",
+  "version": "0.1.0",
+  "description": "Spec-driven development workflow: /prd clarifies the requirement, /design turns it into a codebase-grounded design and task list, /feature and /bugfix build test-first with verify and review gates. Repo specifics come from .claude/devflow.json.",
+  "author": {
+    "name": "rakgithub"
+  },
+  "keywords": ["workflow", "spec-driven", "tdd", "prd", "design", "code-review"]
+}

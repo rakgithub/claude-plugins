@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "rakgithub",
+  "description": "Personal Claude Code plugins",
+  "owner": {
+    "name": "rakgithub"
+  },
+  "plugins": [
+    {
+      "name": "devflow",
+      "description": "Spec-driven development workflow: PRD -> codebase-grounded design and tasks -> test-first build -> verify -> review. Repo specifics come from .claude/devflow.json.",
+      "source": "./plugins/devflow",
+      "category": "development"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "description": "Runs the edited file's area onEdit commands (format/lint-fix) after Edit/Write, and blocks finishing a turn while any changed area's check command fails. Both read .claude/devflow.json and do nothing without it.",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/format-on-edit.sh\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/stop-gate.sh\"",
+            "timeout": 180
+          }
+        ]
+      }
+    ]
+  }
+}
