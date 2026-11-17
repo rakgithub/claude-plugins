@@ -46,9 +46,7 @@ Pick the mode from the input:
       mode) and the config `rules`. Endpoints match their OpenAPI
       operation exactly: path, parameters, request and response schemas,
       status codes. If the task changes UI in an area with
-      `"ui": true`, load the `frontend-design` skill first and follow it;
-      the area's conventions and existing design system win where they
-      disagree.
+      `"ui": true`, follow the area's conventions and existing design system.
       The red tests are the spec: make them pass by changing production
       code, never by editing them. If a test is genuinely wrong (it
       contradicts the acceptance criteria or the contract), stop and tell

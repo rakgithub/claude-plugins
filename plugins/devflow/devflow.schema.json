@@ -47,7 +47,7 @@
         "name": { "type": "string", "minLength": 1, "description": "Short name used in designs and tasks." },
         "path": { "type": "string", "minLength": 1, "description": "Folder relative to the repo root; \".\" for the whole repo." },
         "conventions": { "type": "string", "description": "File with the area's rules, usually its CLAUDE.md." },
-        "ui": { "type": "boolean", "description": "UI changes here get the frontend-design skill and the ui-reviewer." },
+        "ui": { "type": "boolean", "description": "UI changes here get the ui-reviewer." },
         "openapi": { "type": "string", "description": "OpenAPI file (relative to the repo root) that is the source of truth for this area's HTTP API." },
         "onEdit": {
           "type": "array",

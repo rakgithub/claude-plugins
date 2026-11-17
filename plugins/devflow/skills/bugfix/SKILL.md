@@ -29,9 +29,8 @@ file of the area that owns the bug and follow it.
    down the exact manual reproduction instead, and use it as the check in
    step 4. Don't invent a test that passes regardless.
 3. **Fix.** Smallest change that fixes the root cause, not the symptom. No
-   drive-by refactors. For a visual bug in an area with `"ui": true`, load
-   the `frontend-design` skill first; the area's conventions win where they
-   disagree. The area's `openapi` file is the contract: if the code breaks
+   drive-by refactors. For a visual bug in an area with `"ui": true`, follow the
+   area's conventions and existing design system. The area's `openapi` file is the contract: if the code breaks
    it, fix the code. If the spec itself is wrong, stop, show the user the
    spec change, and update the spec before the code once they agree.
    Make the failing test pass by changing production code, never by

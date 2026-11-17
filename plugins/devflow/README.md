@@ -25,10 +25,8 @@ multi-part requirements, and run `/devflow:feature <spec folder>` in a
 Agents: `devflow:test-writer`, `devflow:code-reviewer`,
 `devflow:ui-reviewer`, `devflow:plan-reviewer`.
 
-UI work (areas with `"ui": true`) follows the `frontend-design` skill in
-`/design`, `/feature`, `/bugfix` and the ui-reviewer. devflow declares
-`frontend-design@claude-plugins-official` as a dependency, so installing
-devflow installs it too; the area's conventions still win.
+UI changes in areas with `"ui": true` get the ui-reviewer, and the area's
+conventions and design system apply.
 
 Hooks: after every Edit/Write, the owning area's `onEdit` steps run on the
 file and the area is recorded as edited by this session. Before a turn
@@ -176,8 +174,7 @@ Run the eval suite after changing a skill or agent prompt. Each case is a
 real Claude session on the fixture repo in `evals/_fixture/` (a bugfix, a
 quick-mode feature, and a review of a branch with planted bugs), graded on
 process (tests before code) and outcome. A full run is a few dollars; use
-`--runs 1` while iterating. `run.sh` evaluates a copy without the
-`frontend-design` dependency, which the sandbox can't resolve.
+`--runs 1` while iterating.
 
 ```bash
 bash evals/run.sh --runs 1 -j 3

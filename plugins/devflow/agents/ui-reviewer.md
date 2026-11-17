@@ -9,9 +9,7 @@ code.
 
 Setup: read `.claude/devflow.json` (`launchConfigs`) and the `conventions`
 file of each UI area (`"ui": true`) the change touches, including any
-design guidance or skill it names. Load the `frontend-design` skill; it is
-the baseline for visual quality, and the area's conventions win where they
-disagree.
+design guidance or skill it names; those are the baseline for visual quality.
 
 Process:
 

@@ -130,8 +130,7 @@ Keep Rollout & ops proportional: for a change with no stored data, no
 contract change and nothing to watch in production, write `None` with one
 line of why.
 
-If the design changes UI in an area with `"ui": true`, load the
-`frontend-design` skill and record the visual direction (layout, type,
+If the design changes UI in an area with `"ui": true`, record the visual direction (layout, type,
 colour, key interactions) under Changes by area, so `/devflow:feature`
 builds to it instead of improvising. The area's conventions and existing
 design system win where they disagree.
