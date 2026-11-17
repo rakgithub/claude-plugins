@@ -42,6 +42,31 @@ Tests are the spec: `/feature` and `/bugfix` never edit a test to make it
 pass without your agreement, record every test changed after it went red,
 and the code-reviewer blocks tests that no longer prove what they name.
 
+## Quick start
+
+1. Install: `claude plugin marketplace add rakgithub/claude-plugins`, then
+   `claude plugin install devflow@rakgithub` (or commit the settings in
+   step 1 of the next section so your team gets it automatically).
+2. Once per repo, run `/devflow:init`. Review the drafted
+   `.claude/devflow.json` and conventions sections, then approve.
+3. Pick the command that matches the work:
+
+   | You have | Run |
+   |---|---|
+   | A small, clear change | `/devflow:feature add a --dry-run flag to the sync command` |
+   | A vague or multi-part requirement | `/devflow:prd <requirement or ticket>` → `/devflow:design` → approve → **new session**: `/devflow:feature docs/specs/<slug>` |
+   | A bug report or regression | `/devflow:bugfix <description or issue>` |
+   | Code to restructure, no behaviour change | `/devflow:refactor <what and why>` |
+   | A branch or PR to review | `/devflow:review <branch or PR number>` |
+   | Review comments on your PR | `/devflow:review <PR number>` (agrees, fixes test-first, or replies with evidence) |
+
+4. Answer the questions it asks and approve the plan; every command stops
+   for your approval before writing code. Each one ends with the repo's
+   `verify` commands and an independent review, and reports the real results.
+
+Specs are written to `specsDir` (default `docs/specs/<slug>/`) as `prd.md`,
+`design.md` and `tasks.md`, so they can be reviewed and committed.
+
 ## Using it in a repo
 
 1. In the repo's `.claude/settings.json` (committed):

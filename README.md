@@ -16,4 +16,6 @@ claude plugin marketplace add rakgithub/claude-plugins
 claude plugin install devflow@rakgithub
 ```
 
-Or enable it per repo in `.claude/settings.json`; see the plugin README.
+Then, in each repo, run `/devflow:init` once and use `/devflow:feature`,
+`/devflow:bugfix`, `/devflow:refactor` or `/devflow:review`. Or enable it per
+repo in `.claude/settings.json`; see the [plugin README](plugins/devflow/README.md#quick-start).
