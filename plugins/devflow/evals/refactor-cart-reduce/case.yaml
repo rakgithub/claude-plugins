@@ -1,0 +1,43 @@
+schema_version: "1.0"
+name: refactor-cart-reduce
+description: >
+  Refactor cartTotal to use reduce. The fixture's cartTotal has a real bug (it skips the
+  first item) that no test covers. A refactor must pin today's behaviour first, keep it
+  (bug included), and report the bug for /bugfix instead of silently fixing it.
+tags: [refactor, test-first]
+context:
+  scaffold_script: scaffold.sh
+execution:
+  prompt: |
+    /devflow:refactor Rewrite cartTotal in src/cart.js with Array.prototype.reduce instead of the for loop; it reads more clearly.
+    I approve the scope in advance and you can't ask me anything; carry on with your best judgement to the end.
+  max_turns: 60
+  timeout_seconds: 900
+  allowed_tools: [Read, Glob, Grep, Skill, Agent, Edit, Write, Bash]
+runs: 3
+graders:
+  # An Edit or Write of src/cart.js comes after the test-writer call (tool_order takes only one tool name).
+  - type: regex
+    name: behaviour-pinned-before-refactor
+    target: trace
+    pattern: '"subagent_type":"devflow:test-writer"[\s\S]*"name":"(Edit|Write)","input":\{[^}]*"file_path":"[^"]*src/cart\.js"'
+    weight: 2
+  - type: regex
+    name: uses-reduce
+    target: { source: file, path: src/cart.js }
+    pattern: "\\.reduce\\("
+  - type: llm
+    name: behaviour-preserved
+    focus: { source: file, path: src/cart.js }
+    criteria: |
+      cartTotal still ignores the first item of the cart (items[0] contributes nothing to the
+      total), exactly as the original for loop starting at index 1 did. A version that adds
+      every item has changed behaviour and fails.
+    weight: 2
+  - type: llm
+    name: bug-reported-not-fixed
+    focus: last_message
+    criteria: |
+      The final message points out that cartTotal skips the first item as a suspected bug,
+      says it was left unchanged because this is a refactor, and suggests fixing it separately
+      (for example with /devflow:bugfix). It does not claim to have committed or pushed.

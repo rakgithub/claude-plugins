@@ -56,8 +56,15 @@ tasks can refer to them.
 ### In
 ### Out
 ## Requirements & acceptance criteria
+## Constraints       (only those that apply, each measurable: performance
+                     budget, security & privacy, accessibility level,
+                     compliance, compatibility with existing clients)
 ## Assumptions & open questions
 ```
+
+Ask about constraints in step 1 when the requirement touches personal
+data, money, auth, a public API or a hot path; leave the section out
+otherwise.
 
 End with the path to `prd.md` and suggest `/devflow:design <slug>` for the
 technical design. Don't start it yourself.

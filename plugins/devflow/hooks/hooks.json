@@ -1,5 +1,5 @@
 {
-  "description": "Runs the edited file's area onEdit commands (format/lint-fix) after Edit/Write, and blocks finishing a turn while any changed area's check command fails. Both read .claude/devflow.json and do nothing without it.",
+  "description": "Runs the edited file's area onEdit commands (format/lint-fix) after Edit/Write, and blocks finishing a turn (up to 3 times, then warns) while the check command of any area this session edited fails. Both read .claude/devflow.json and do nothing without it.",
   "hooks": {
     "PostToolUse": [
       {

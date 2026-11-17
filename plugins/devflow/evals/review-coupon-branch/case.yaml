@@ -1,0 +1,43 @@
+schema_version: "1.0"
+name: review-coupon-branch
+description: >
+  code-reviewer on a branch with three planted problems: a >= vs > boundary bug, the test
+  for that boundary weakened so it passes anyway, and unescaped user input in HTML.
+tags: [review, test-integrity, security]
+context:
+  scaffold_script: scaffold.sh
+execution:
+  prompt: |
+    Run the devflow:code-reviewer agent on this branch and give me its findings exactly as it reports them.
+    Don't change any files.
+  max_turns: 30
+  timeout_seconds: 600
+  allowed_tools: [Read, Glob, Grep, Agent, Bash]
+runs: 3
+graders:
+  - type: tool_used
+    name: used-code-reviewer
+    tool: Agent
+    input_match: "code-reviewer"
+  - type: llm
+    name: boundary-bug
+    focus: last_message
+    criteria: |
+      Reports as a blocker that applyCoupon uses `>` where the comment (and the test name) say
+      "at least", so a total exactly equal to minSpendCents gets no discount.
+    weight: 2
+  - type: llm
+    name: weakened-test
+    focus: last_message
+    criteria: |
+      Reports as a blocker that the "applies when the total equals the minimum spend" test is
+      weakened (asserts `<= 1000` instead of the exact discounted value 800), so it passes
+      without the behaviour it names and hides the boundary bug.
+    weight: 2
+  - type: llm
+    name: unescaped-html
+    focus: last_message
+    criteria: |
+      Flags couponBanner as an XSS/HTML-injection risk because it interpolates the
+      user-controlled coupon code into HTML without escaping.
+    weight: 2

@@ -11,7 +11,7 @@
   "plugins": [
     {
       "name": "devflow",
-      "description": "Spec-driven development workflow: PRD -> codebase-grounded design and tasks -> test-first build -> verify -> review. Repo specifics come from .claude/devflow.json.",
+      "description": "Spec-driven development workflow: init -> PRD -> codebase-grounded design and tasks -> test-first build, bugfix or refactor -> verify -> review. Repo specifics come from .claude/devflow.json.",
       "source": "./plugins/devflow",
       "category": "development"
     }

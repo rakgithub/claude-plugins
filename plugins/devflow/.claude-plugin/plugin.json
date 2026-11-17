@@ -1,10 +1,10 @@
 {
   "name": "devflow",
-  "version": "0.2.0",
-  "description": "Spec-driven development workflow: /prd clarifies the requirement, /design turns it into a codebase-grounded design and task list, /feature and /bugfix build test-first with verify and review gates. Repo specifics come from .claude/devflow.json.",
+  "version": "0.5.0",
+  "description": "Spec-driven development workflow: /init sets a repo up, /prd clarifies the requirement, /design turns it into a codebase-grounded design and task list, /feature, /bugfix and /refactor build test-first with verify and review gates, /review reviews a branch or PR or answers its comments. Repo specifics come from .claude/devflow.json.",
   "author": {
     "name": "rakgithub"
   },
-  "keywords": ["workflow", "spec-driven", "tdd", "prd", "design", "code-review"],
+  "keywords": ["workflow", "spec-driven", "tdd", "prd", "design", "code-review", "refactor"],
   "dependencies": ["frontend-design@claude-plugins-official"]
 }

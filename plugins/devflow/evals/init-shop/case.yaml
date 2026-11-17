@@ -1,0 +1,49 @@
+schema_version: "1.0"
+name: init-shop
+description: >
+  /init on a single-package repo with only a test script. It should write a devflow.json
+  using the repo's real commands (node --test / npm test) and no invented tooling, add the
+  missing Testing section from the existing tests, and say what it couldn't find.
+tags: [init]
+context:
+  scaffold_script: scaffold.sh
+execution:
+  prompt: |
+    /devflow:init
+    I approve whatever you propose in advance and you can't ask me anything: write the files without waiting for me.
+  max_turns: 50
+  timeout_seconds: 900
+  allowed_tools: [Read, Glob, Grep, Skill, Agent, Edit, Write, Bash]
+runs: 3
+graders:
+  - type: file_exists
+    name: config-written
+    path: .claude/devflow.json
+    weight: 2
+  - type: regex
+    name: real-test-command
+    target: { source: file, path: .claude/devflow.json }
+    pattern: "\"check\"\\s*:\\s*\"[^\"]*(node --test|npm (run )?test)"
+    weight: 2
+  - type: regex
+    name: no-invented-tools
+    target: { source: file, path: .claude/devflow.json }
+    pattern: "eslint|prettier|vitest|jest|tsc|biome"
+    match: not_contains
+    weight: 2
+  - type: regex
+    name: schema-referenced
+    target: { source: file, path: .claude/devflow.json }
+    pattern: "\"\\$schema\"\\s*:\\s*\"https://raw\\.githubusercontent\\.com/rakgithub/claude-plugins/main/plugins/devflow/devflow\\.schema\\.json\""
+  - type: regex
+    name: testing-section-added
+    target: { source: file, path: CLAUDE.md }
+    pattern: "^## Testing"
+    flags: m
+  - type: llm
+    name: reports-gaps
+    focus: last_message
+    criteria: |
+      The final message says the repo has no lint, format or typecheck commands (so those were
+      left out rather than invented), mentions that devflow's hooks run the commands in
+      devflow.json, and suggests a next devflow command.

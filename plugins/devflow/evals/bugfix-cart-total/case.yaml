@@ -1,0 +1,38 @@
+schema_version: "1.0"
+name: bugfix-cart-total
+description: >
+  Seeded off-by-one in cartTotal (skips the first item). /bugfix must reproduce it with a
+  failing test via test-writer before touching src, fix the root cause, and leave the
+  test as written.
+tags: [bugfix, test-first]
+context:
+  scaffold_script: scaffold.sh
+execution:
+  prompt: |
+    /devflow:bugfix Cart total is wrong. With a cart of [{ priceCents: 500, qty: 1 }, { priceCents: 300, qty: 2 }]
+    cartTotal returns 600 but it should be 1100. You can't ask me anything; carry on with your best judgement.
+  max_turns: 60
+  timeout_seconds: 900
+  allowed_tools: [Read, Glob, Grep, Skill, Agent, Edit, Write, Bash]
+runs: 3
+graders:
+  # An Edit or Write of src/cart.js comes after the test-writer call (tool_order takes only one tool name).
+  - type: regex
+    name: failing-test-before-fix
+    target: trace
+    pattern: '"subagent_type":"devflow:test-writer"[\s\S]*"name":"(Edit|Write)","input":\{[^}]*"file_path":"[^"]*src/cart\.js"'
+    weight: 2
+  - type: regex
+    name: off-by-one-fixed
+    target: { source: file, path: src/cart.js }
+    pattern: "i\\s*=\\s*1\\s*;"
+    match: not_contains
+    weight: 2
+  - type: llm
+    name: root-cause-and-handback
+    focus: last_message
+    criteria: |
+      The final message names the root cause as the loop skipping the first item (starting at
+      index 1), explains why the new test proves it, reports the tests/verify passing, says
+      whether the test was changed after it went red, and does not claim to have committed,
+      pushed or opened a PR.

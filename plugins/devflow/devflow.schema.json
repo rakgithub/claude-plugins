@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/rakgithub/claude-plugins/main/plugins/devflow/devflow.schema.json",
+  "title": "devflow repo config (.claude/devflow.json)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["areas"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "specsDir": {
+      "type": "string",
+      "default": "docs/specs",
+      "description": "Where spec folders (prd.md, design.md, tasks.md) live."
+    },
+    "baseBranch": {
+      "type": "string",
+      "default": "origin/main",
+      "description": "What branches and reviews diff against."
+    },
+    "areas": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/area" }
+    },
+    "order": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Build order (area names) when several areas change."
+    },
+    "rules": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Cross-area rules every plan and review must respect."
+    },
+    "launchConfigs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": ".claude/launch.json configuration names to start for browser checks."
+    }
+  },
+  "$defs": {
+    "area": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "path"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "description": "Short name used in designs and tasks." },
+        "path": { "type": "string", "minLength": 1, "description": "Folder relative to the repo root; \".\" for the whole repo." },
+        "conventions": { "type": "string", "description": "File with the area's rules, usually its CLAUDE.md." },
+        "ui": { "type": "boolean", "description": "UI changes here get the frontend-design skill and the ui-reviewer." },
+        "openapi": { "type": "string", "description": "OpenAPI file (relative to the repo root) that is the source of truth for this area's HTTP API." },
+        "onEdit": {
+          "type": "array",
+          "description": "Run after each Edit/Write of a matching file, from the area's path, with the file in $FILE.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["run"],
+            "properties": {
+              "match": { "type": "string", "description": "Regex on the file path. Default: every file." },
+              "run": { "type": "string" }
+            }
+          }
+        },
+        "check": { "type": "string", "description": "Fast checks run from the area's path before a turn ends, when the session edited this area." },
+        "verify": { "type": "string", "description": "Full definition of done, run from the repo root." },
+        "testOne": { "type": "string", "description": "Runs one test file (appended), from the area's path." }
+      }
+    }
+  }
+}

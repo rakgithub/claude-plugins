@@ -1,0 +1,40 @@
+schema_version: "1.0"
+name: feature-clamp
+description: >
+  Small quick-mode feature. Tests must be written (and fail) via test-writer before the
+  implementation, the code must follow the fixture's conventions, and the hand back must
+  map each acceptance criterion to a test.
+tags: [feature, test-first]
+context:
+  scaffold_script: scaffold.sh
+execution:
+  prompt: |
+    /devflow:feature Add clamp(value, min, max) to src/math.js. It returns value limited to [min, max],
+    and throws a RangeError when min > max.
+    I approve your spec and plan in advance: don't stop for approval, run it to the end.
+  max_turns: 60
+  timeout_seconds: 900
+  allowed_tools: [Read, Glob, Grep, Skill, Agent, Edit, Write, Bash]
+runs: 3
+graders:
+  # An Edit or Write of src/math.js comes after the test-writer call (tool_order takes only one tool name).
+  - type: regex
+    name: tests-before-implementation
+    target: trace
+    pattern: '"subagent_type":"devflow:test-writer"[\s\S]*"name":"(Edit|Write)","input":\{[^}]*"file_path":"[^"]*src/math\.js"'
+    weight: 2
+  - type: regex
+    name: clamp-exported
+    target: { source: file, path: src/math.js }
+    pattern: "export function clamp"
+  - type: regex
+    name: rangeerror-tested
+    target: { source: file, path: tests/math.test.js }
+    pattern: "RangeError"
+  - type: llm
+    name: handback
+    focus: last_message
+    criteria: |
+      The final message maps each acceptance criterion (clamping below, above, inside the range,
+      RangeError when min > max) to a test, reports verify passing, says whether any test was
+      changed after it went red, and does not claim to have committed, pushed or opened a PR.

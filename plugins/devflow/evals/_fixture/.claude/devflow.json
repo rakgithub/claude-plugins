@@ -1,0 +1,17 @@
+{
+  "specsDir": "docs/specs",
+  "baseBranch": "main",
+  "areas": [
+    {
+      "name": "shop",
+      "path": ".",
+      "conventions": "CLAUDE.md",
+      "check": "node --test",
+      "verify": "node --test",
+      "testOne": "node --test"
+    }
+  ],
+  "order": ["shop"],
+  "rules": [],
+  "launchConfigs": []
+}
